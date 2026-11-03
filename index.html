@@ -1,0 +1,726 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>고양경찰서 2026 범죄예방 성과</title>
+<meta name="description" content="답은 현장에 있다 — 순찰로봇·A.C.E·CPTED·민경협업·교육홍보로 본 고양경찰서 2026 범죄예방 성과 (약 1분)">
+<meta property="og:title" content="고양경찰서 2026 범죄예방 성과">
+<meta property="og:description" content="답은 현장에 있다 — 범죄예방에 AI를 접목하다 (약 1분 모션그래픽)">
+<meta property="og:image" content="https://dlrmsals1425-dotcom.github.io/goyang-2026/photos/0_station.jpg">
+<meta property="og:type" content="website">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+:root{
+  --patrol:#F28C28; --cpted:#3FA66B; --coop:#2F80ED; --edu:#E2557A;
+  --navy:#0B1730; --ink:#fff; --dim:rgba(255,255,255,.62); --card:rgba(255,255,255,.07); --red:#FF5C5C; --gold:#FFD34D;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:#000;overflow:hidden}
+body{font-family:"Pretendard Variable",Pretendard,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;-webkit-font-smoothing:antialiased}
+
+/* 1080x1920 무대를 화면에 맞춰 축소 */
+#stage{position:absolute;left:50%;top:50%;width:1080px;height:1920px;
+  transform:translate(-50%,-50%) scale(var(--s,.3));background:var(--navy);color:var(--ink);overflow:hidden;
+  --c:var(--navy);cursor:pointer;user-select:none}
+#stage.paused *{animation-play-state:paused!important}
+.glow{position:absolute;width:1500px;height:1500px;left:-210px;top:-500px;border-radius:50%;
+  background:var(--c);opacity:.28;filter:blur(220px);transition:background-color 1s}
+.glow.b{top:auto;bottom:-800px;left:-300px;opacity:.16}
+
+/* 상단 챕터 진행 바 */
+#bar{position:absolute;left:90px;right:90px;top:90px;display:flex;gap:16px;z-index:5;transition:opacity .5s}
+#stage[data-ch="0"] #bar{opacity:0}
+.seg{flex:1}
+.seg .track{height:12px;border-radius:6px;background:rgba(255,255,255,.16);overflow:hidden}
+.seg .fill{height:100%;width:0;background:var(--sc)}
+.seg span{display:block;margin-top:14px;font-size:28px;font-weight:600;color:rgba(255,255,255,.45);transition:color .4s;text-shadow:0 2px 8px rgba(0,0,0,.5)}
+.seg.cur span{color:var(--sc)}
+
+footer{position:absolute;left:0;right:0;bottom:70px;text-align:center;font-size:28px;font-weight:500;color:rgba(255,255,255,.45);letter-spacing:.04em;z-index:5}
+
+/* 장면 */
+.scene{position:absolute;inset:0;padding:240px 90px 170px;display:flex;flex-direction:column;gap:38px;visibility:hidden}
+.scene[data-ch="1"]{--c:var(--patrol)} .scene[data-ch="2"]{--c:var(--cpted)}
+.scene[data-ch="3"]{--c:var(--coop)}   .scene[data-ch="4"]{--c:var(--edu)}
+.scene.on{visibility:visible;animation:sceneIn .5s both}
+.scene.out{visibility:visible;animation:sceneOut .45s both}
+.scene .a{opacity:0}
+.scene.out .a{opacity:1}
+.scene.on .a{animation:var(--anim,up) var(--du,.75s) cubic-bezier(.2,.8,.2,1) both;animation-delay:var(--d,0ms)}
+.center{justify-content:center}
+@keyframes sceneIn{from{opacity:0}to{opacity:1}}
+@keyframes sceneOut{from{opacity:1}to{opacity:0;transform:translateY(-30px)}}
+@keyframes up{from{opacity:0;transform:translateY(50px)}to{opacity:1;transform:none}}
+@keyframes pop{0%{opacity:0;transform:scale(.4)}70%{opacity:1;transform:scale(1.08)}100%{opacity:1;transform:none}}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+@keyframes left{from{opacity:0;transform:translateX(-80px)}to{opacity:1;transform:none}}
+/* 빡! — 크게 날아와 박히는 강조 */
+@keyframes slam{0%{opacity:0;transform:scale(3);filter:blur(12px)}55%{opacity:1;transform:scale(.92);filter:none}75%{transform:scale(1.04)}100%{opacity:1;transform:none}}
+@keyframes stamp{0%{opacity:0;transform:scale(3.2) rotate(-8deg)}55%{opacity:1;transform:scale(.9) rotate(-8deg)}100%{opacity:1;transform:rotate(-8deg)}}
+/* 강조가 박히는 순간 화면 흔들림·번쩍임 */
+.scene.on .jolt{animation:jolt .45s linear both;animation-delay:var(--jd)}
+@keyframes jolt{0%,100%{transform:none}15%{transform:translate(-14px,8px)}30%{transform:translate(12px,-10px)}45%{transform:translate(-8px,6px)}60%{transform:translate(6px,-4px)}80%{transform:translate(-2px,2px)}}
+.flash{position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none;z-index:4}
+.scene.on .flash{animation:flash .5s ease-out both;animation-delay:var(--d)}
+@keyframes flash{0%{opacity:0}10%{opacity:.55}100%{opacity:0}}
+
+.tag{align-self:flex-start;display:inline-flex;align-items:center;gap:18px;padding:14px 34px;border-radius:999px;background:var(--c);font-size:38px;font-weight:800}
+.tag small{font-size:30px;font-weight:600;opacity:.75}
+h2{font-size:74px;line-height:1.22;font-weight:800;letter-spacing:-.02em}
+.sub{font-size:40px;line-height:1.45;color:var(--dim);font-weight:500}
+.hl{color:var(--c)}
+.badge{align-self:flex-start;padding:10px 26px;border-radius:14px;border:3px solid var(--c);color:var(--c);font-size:34px;font-weight:800}
+.big{font-size:170px;line-height:1;font-weight:900;letter-spacing:-.04em;color:var(--c)}
+.big small{font-size:72px;font-weight:800;margin-left:6px;letter-spacing:-.02em}
+.cap{font-size:42px;font-weight:600;line-height:1.4}
+.stats{display:flex;gap:32px}
+.stat{flex:1;background:rgba(11,23,48,.7);border-radius:30px;padding:34px 36px}
+.stat b{display:block;white-space:nowrap;font-size:96px;line-height:1;font-weight:900;color:var(--c);letter-spacing:-.04em}
+.stat b small{font-size:52px;margin-left:4px}
+.stat > span{display:block;margin-top:12px;font-size:34px;color:var(--dim);font-weight:600}
+
+/* 사진 칸: photos/ 폴더에 파일이 없으면 자리 표시가 나타남 */
+.photo{position:relative;flex:none;border-radius:36px;overflow:hidden;background:rgba(255,255,255,.05)}
+.photo img{width:100%;height:100%;object-fit:cover;display:block}
+.scene.on .photo img{animation:kb 9s linear both}
+@keyframes kb{from{transform:scale(1.1)}to{transform:scale(1)}}
+.photo .ph{display:none}
+.photo.empty{border:6px dashed rgba(255,255,255,.32);background:repeating-linear-gradient(135deg,rgba(255,255,255,.03) 0 30px,transparent 30px 60px)}
+.photo.empty img{display:none}
+.photo.empty .ph{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;text-align:center;padding:40px}
+.ph b{font-size:52px;font-weight:800;color:var(--c)}
+.ph span{font-size:40px;font-weight:600}
+.ph code{font-family:ui-monospace,Consolas,monospace;font-size:30px;color:var(--dim);background:rgba(0,0,0,.3);padding:8px 18px;border-radius:10px}
+
+/* 오프닝: 경찰서 전경 + 임팩트 문구 */
+#s-open{justify-content:flex-end;padding-bottom:330px}
+.hero{position:absolute;left:0;right:0;top:0;height:1180px;overflow:hidden}
+.hero img{width:100%;height:100%;object-fit:cover;object-position:56% 40%;filter:saturate(.9) brightness(.8)}
+.scene.on .hero img{animation:heroZoom 5.5s ease-out both}
+@keyframes heroZoom{from{transform:scale(1.25)}to{transform:scale(1.05)}}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,23,48,.15) 0%,rgba(11,23,48,.35) 45%,var(--navy) 100%)}
+#s-open h1{position:relative;font-size:178px;line-height:1.08;font-weight:900;letter-spacing:-.05em;text-shadow:0 10px 40px rgba(0,0,0,.5)}
+#s-open h1 em{font-style:normal;color:var(--gold)}
+#s-open .line{position:relative;margin-top:60px;display:flex;align-items:center;gap:26px}
+#s-open .line i{flex:none;width:14px;align-self:stretch;border-radius:7px;background:linear-gradient(var(--patrol),var(--cpted),var(--coop),var(--edu))}
+#s-open p{font-size:70px;line-height:1.25;font-weight:800}
+#s-open p b{color:#7FB2FF}
+
+/* 순찰 1: 폴리봇 영상 전체 화면 */
+.full{justify-content:flex-end}
+.full video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.full::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,23,48,.55) 0%,rgba(11,23,48,0) 22%,rgba(11,23,48,0) 42%,rgba(11,23,48,.92) 72%,var(--navy) 100%);z-index:1}
+.full > *:not(video){position:relative;z-index:2}
+.full .tag{margin-bottom:auto}
+
+/* A.C.E 우수사례 도장 */
+.stampbox{position:relative}
+.stampmark{position:absolute;right:-20px;bottom:-60px;z-index:3;padding:22px 34px;border:8px solid var(--gold);border-radius:22px;color:var(--gold);
+  background:rgba(11,23,48,.88);font-size:52px;font-weight:900;line-height:1.15;text-align:center;box-shadow:0 20px 50px rgba(0,0,0,.5);opacity:0;transform:rotate(-8deg)}
+.scene.on .stampmark{animation:stamp .6s cubic-bezier(.2,.8,.2,1) both;animation-delay:var(--d)}
+.scene.out .stampmark{opacity:1}
+.ml{display:inline-block;padding:4px 18px;border-radius:12px;background:var(--c);color:#fff}
+
+/* CPTED: 주민 질문 말풍선 / 지도 / 예산 */
+.asks{display:flex;flex-direction:column;gap:26px}
+.ask{align-self:flex-start;max-width:86%;padding:30px 40px;border-radius:40px 40px 40px 8px;background:#fff;color:var(--navy);font-size:50px;font-weight:800;line-height:1.3}
+.ask:nth-child(2){align-self:flex-end;border-radius:40px 40px 8px 40px;background:var(--c);color:#fff}
+.ask small{display:block;font-size:30px;font-weight:600;opacity:.6;margin-bottom:6px}
+.map{position:relative;height:700px;border-radius:36px;background:
+  linear-gradient(rgba(255,255,255,.06) 2px,transparent 2px) 0 0/90px 90px,
+  linear-gradient(90deg,rgba(255,255,255,.06) 2px,transparent 2px) 0 0/90px 90px,var(--card)}
+.map .pin{position:absolute;width:96px;height:96px;margin:-96px 0 0 -48px;border-radius:50% 50% 50% 0;transform-origin:50% 100%;
+  background:var(--c);rotate:-45deg;box-shadow:0 0 0 18px color-mix(in srgb,var(--c) 25%,transparent)}
+.map .pin::after{content:"";position:absolute;inset:30px;border-radius:50%;background:var(--navy)}
+.drop-red{color:var(--red)}
+.budget{display:flex;flex-direction:column;gap:20px}
+.brow{display:flex;justify-content:space-between;align-items:baseline;padding:30px 40px;border-radius:28px;background:var(--card);font-size:44px;font-weight:700}
+.brow b{font-size:60px;font-weight:900;color:var(--c)}
+.btotal{border-top:4px solid rgba(255,255,255,.25);padding-top:30px}
+.medal{display:inline-flex;align-items:center;gap:22px;padding:22px 42px;border-radius:999px;background:var(--c);font-size:52px;font-weight:900;align-self:flex-start}
+
+/* 민경협업: 땅·하늘 연속 컷 */
+.duo{display:flex;flex-direction:column;gap:14px}
+.seq{position:relative;height:450px;border-radius:32px;overflow:hidden;background:rgba(255,255,255,.05)}
+.seq .frames{position:absolute;inset:0}
+.seq img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;visibility:hidden}
+.seq img.cur{visibility:visible}
+.seq.ground .frames{transform-origin:50% 60%}
+.scene.on .seq .frames{animation:push 7s linear both}
+@keyframes push{from{transform:scale(1)}to{transform:scale(1.18)}}
+.seq .lbl{position:absolute;left:24px;top:22px;z-index:2;padding:10px 22px;border-radius:12px;background:rgba(0,0,0,.6);font-size:30px;font-weight:800}
+.seq .lbl b{color:var(--c);margin-right:10px}
+.seq.sky::after{content:"";position:absolute;left:0;right:0;top:0;height:6px;background:linear-gradient(90deg,transparent,var(--c),transparent);opacity:.8;z-index:2}
+.scene.on .seq.sky::after{animation:scan 1.6s linear infinite}
+@keyframes scan{from{top:0}to{top:100%}}
+.seq .rec{position:absolute;right:24px;top:28px;z-index:2;font-size:28px;font-weight:800;color:var(--red)}
+.seq .ph{display:none}
+.seq.empty{border:6px dashed rgba(255,255,255,.32)}
+.seq.empty .frames{display:none}
+.seq.empty .ph{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;text-align:center}
+.result{display:flex;align-items:center;gap:20px;font-size:52px;font-weight:900}
+.result i{font-style:normal;color:var(--c)}
+
+/* 민경협업 막대 + 떨어지는 화살표 */
+.chart{position:relative;display:flex;align-items:flex-end;justify-content:center;gap:160px;height:760px;padding:40px 60px 0;background:var(--card);border-radius:36px}
+.col{display:flex;flex-direction:column;align-items:center;gap:18px;width:220px}
+.col b{font-size:64px;font-weight:900}
+.col .bv{width:100%;height:var(--h);border-radius:22px 22px 0 0;background:var(--c);transform-origin:bottom}
+.col.before .bv{background:rgba(255,255,255,.3)}
+.scene.on .col .bv{animation:grow 1s cubic-bezier(.2,.8,.2,1) both;animation-delay:var(--d)}
+@keyframes grow{from{transform:scaleY(0)}to{transform:none}}
+.col > span{font-size:30px;color:var(--dim);font-weight:600;padding-bottom:30px}
+.arc{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none;filter:drop-shadow(0 0 24px color-mix(in srgb,var(--c) 70%,transparent))}
+.arc path{fill:none;stroke:var(--c);stroke-width:22;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1}
+.scene.on .arc path{animation:draw .6s cubic-bezier(.5,0,.8,1) both;animation-delay:var(--d)}
+.scene.out .arc path{stroke-dashoffset:0}
+@keyframes draw{to{stroke-dashoffset:0}}
+.arc polygon{fill:var(--c);opacity:0;transform-box:fill-box;transform-origin:50% 50%}
+.scene.on .arc polygon{animation:pop .35s cubic-bezier(.3,1.6,.5,1) both;animation-delay:var(--d)}
+.scene.out .arc polygon{opacity:1}
+
+/* 교육홍보 */
+.orbit{position:relative;height:560px;display:flex;align-items:center;justify-content:center}
+.orbit .big{font-size:220px}
+.crimes{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.crimes span{padding:12px 8px;border-radius:14px;background:var(--card);font-size:27px;font-weight:700;text-align:center;white-space:nowrap}
+.orbit span{position:absolute;padding:12px 26px;border-radius:999px;background:var(--card);border:4px solid var(--c);font-size:34px;font-weight:700;white-space:nowrap;translate:-50% -50%}
+.app{display:flex;gap:40px;align-items:center}
+.app .photo{width:440px;height:900px;border-radius:56px;border:10px solid #1d2840}
+.app .photo img{object-position:50% 0}
+.scene.on .app .photo img{animation:none}
+.flow{flex:1;display:flex;flex-direction:column;gap:22px}
+.flow div{background:var(--card);border-radius:26px;padding:28px 30px;font-size:38px;font-weight:700;line-height:1.3}
+.flow div small{display:block;font-size:28px;color:var(--dim);font-weight:600;margin-bottom:6px}
+.flow .arr{background:none;padding:0;text-align:center;color:var(--c);font-size:44px}
+.flow .goal{background:var(--c)}
+/* 웹앱 신고 화면 재현 */
+.phone{flex:none;width:470px;height:920px;border-radius:60px;border:12px solid #1d2840;background:#F4F6F9;color:#0B1730;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 30px 70px rgba(0,0,0,.5)}
+.phone .top{display:flex;align-items:center;gap:12px;padding:30px 28px 18px;background:#fff;border-bottom:2px solid #E3E7EE}
+.phone .top img{width:52px;height:52px;border-radius:50%}
+.phone .top b{font-size:25px;font-weight:800;white-space:nowrap}
+.phone .top span{margin-left:auto;padding:6px 14px;border-radius:999px;background:#EAF1FF;color:#2F6FED;font-size:20px;font-weight:800;white-space:nowrap}
+.phone .body{flex:1;display:flex;flex-direction:column;gap:16px;padding:24px 24px}
+.phone h4{font-size:34px;font-weight:900}
+.phone .lab{font-size:21px;font-weight:800;color:#5B6678}
+.phone .box{min-height:150px;padding:20px 22px;border-radius:20px;background:#fff;border:3px solid #D6DCE6;font-size:27px;font-weight:600;line-height:1.45}
+.phone .box.in{border-color:#2F6FED}
+.phone .box.out{border-color:var(--edu);background:#FFF5F8}
+.phone .caret{display:inline-block;width:3px;height:30px;background:#2F6FED;vertical-align:-5px;margin-left:2px}
+.scene.on .phone .caret{animation:blink .8s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.phone .tr{align-self:center;display:flex;align-items:center;gap:10px;font-size:22px;font-weight:800;color:var(--edu)}
+.phone .send{margin-top:auto;padding:22px;border-radius:20px;background:#D9363E;color:#fff;font-size:28px;font-weight:900;text-align:center}
+.scene.on .phone .send.a{animation:pop .5s cubic-bezier(.3,1.6,.5,1) both,pulse 1s ease-in-out infinite;animation-delay:var(--d),calc(var(--d) + .5s)}
+@keyframes pulse{50%{box-shadow:0 0 0 14px rgba(217,54,62,.25)}}
+
+/* 보이스피싱: 교육 사진 + 홍보물 */
+.edu{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:20px;height:960px}
+.edu .photo{height:auto}
+.edu .inset{position:absolute;left:190px;bottom:24px;width:240px;height:320px;border:8px solid var(--navy);border-radius:28px;box-shadow:0 20px 50px rgba(0,0,0,.5)}
+.chip{position:absolute;left:24px;top:24px;z-index:2;padding:10px 22px;border-radius:12px;background:rgba(0,0,0,.65);font-size:30px;font-weight:800}
+.chip b{color:var(--c);margin-right:8px}
+.promo{display:grid;grid-template-columns:330px 1fr;grid-template-rows:420px 1fr;gap:20px;height:960px}
+.promo .photo{height:auto}
+.promo .stand{grid-row:1 / span 2}
+
+.press{position:relative;height:900px}
+.press img{position:absolute;width:640px;left:calc(50% - 320px);border-radius:22px;box-shadow:0 30px 60px rgba(0,0,0,.45)}
+.press img.tv{width:900px;left:0;top:330px;border-radius:26px;box-shadow:0 0 0 6px var(--c),0 40px 80px rgba(0,0,0,.6)}
+
+/* 클로징 */
+#s-end{justify-content:center;align-items:center;text-align:center;gap:30px}
+.merge{display:flex;width:760px;height:22px;border-radius:11px;overflow:hidden;margin-bottom:40px}
+.merge i{flex:1}
+.scene.on .merge i{animation:mg 1s cubic-bezier(.2,.8,.2,1) both;animation-delay:var(--d)}
+@keyframes mg{from{opacity:0;transform:translateY(var(--y)) scaleX(.2)}to{opacity:1;transform:none}}
+.awards{width:100%;display:flex;flex-direction:column;gap:22px}
+.award{display:flex;align-items:center;justify-content:space-between;padding:32px 44px;border-radius:30px;background:var(--card);font-size:46px;font-weight:800;text-align:left}
+.award b{color:var(--gold);font-size:64px;font-weight:900;white-space:nowrap}
+.emblem{width:250px;height:250px;border-radius:50%;object-fit:cover;margin-top:70px;box-shadow:0 0 0 10px rgba(255,255,255,.12),0 20px 60px rgba(0,0,0,.5)}
+#s-end .msg{font-size:62px;line-height:1.35;font-weight:800}
+#s-end .msg em{font-style:normal;color:var(--gold)}
+
+/* 시작·일시정지·다시보기 */
+.ov{position:absolute;inset:0;z-index:10;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:50px;background:rgba(11,23,48,.86);text-align:center}
+.ov[hidden]{display:none}
+.ov .btn{width:260px;height:260px;border-radius:50%;background:#fff;color:var(--navy);display:flex;align-items:center;justify-content:center;font-size:110px;padding-left:18px}
+.ov h3{font-size:62px;font-weight:800;line-height:1.3}
+.ov p{font-size:36px;color:var(--dim)}
+#pauseIcon{position:absolute;inset:0;z-index:9;display:flex;align-items:center;justify-content:center;pointer-events:none}
+#pauseIcon[hidden]{display:none}
+#pauseIcon div{width:220px;height:220px;border-radius:50%;background:rgba(0,0,0,.55);display:flex;align-items:center;justify-content:center;font-size:90px}
+</style>
+</head>
+<body>
+<div id="stage" data-ch="0">
+  <div class="glow"></div><div class="glow b"></div>
+
+  <div id="bar">
+    <div class="seg" style="--sc:var(--patrol)" data-k="1"><div class="track"><div class="fill"></div></div><span>순찰</span></div>
+    <div class="seg" style="--sc:var(--cpted)" data-k="2"><div class="track"><div class="fill"></div></div><span>CPTED</span></div>
+    <div class="seg" style="--sc:var(--coop)" data-k="3"><div class="track"><div class="fill"></div></div><span>민·경 협업</span></div>
+    <div class="seg" style="--sc:var(--edu)" data-k="4"><div class="track"><div class="fill"></div></div><span>교육·홍보</span></div>
+  </div>
+
+  <!-- 오프닝 -->
+  <section class="scene" id="s-open" data-ch="0" data-dur="5500">
+    <div class="hero"><img src="photos/0_station.jpg" alt=""></div>
+    <div class="flash" style="--d:600ms"></div>
+    <div class="jolt" style="--jd:600ms">
+      <h1 class="a" style="--anim:slam;--du:.6s;--d:250ms">답은<br><em>현장</em>에 있다!</h1>
+    </div>
+    <div class="line a" style="--anim:left;--d:2000ms"><i></i><p>범죄예방에<br><b>AI</b>를 접목하다</p></div>
+  </section>
+
+  <!-- ① 순찰 -->
+  <section class="scene full" data-ch="1" data-dur="5000">
+    <video src="video/polibot.mp4" muted playsinline preload="auto"></video>
+    <div class="tag a">① 순찰 <small>1/2</small></div>
+    <div class="badge a" style="--d:500ms;--anim:pop;background:rgba(11,23,48,.6)">도경찰청 최초</div>
+    <h2 class="a" style="--d:700ms">자율주행 순찰로봇<br><span class="hl">'고양 폴리봇'</span> 도입</h2>
+    <div class="stats a" style="--d:1300ms">
+      <div class="stat"><b><span class="num" data-to="2043" data-d="1500">0</span><small>회</small></b><span>자율주행 순찰</span></div>
+      <div class="stat"><b><span class="num" data-to="4866" data-d="1500">0</span><small>km</small></b><span>'26.2.~10. 누적 거리</span></div>
+    </div>
+  </section>
+
+  <section class="scene" data-ch="1" data-dur="5500">
+    <div class="tag a">① 순찰 <small>2/2</small></div>
+    <div class="stampbox">
+      <div class="photo a" style="--d:150ms;--anim:fade;height:480px">
+        <img src="photos/2_ace.jpg" alt="" onerror="this.parentNode.classList.add('empty')">
+        <div class="ph"><b>📷 사진 2</b><span>A.C.E 프로그램 실행 화면</span><code>photos/2_ace.jpg</code></div>
+      </div>
+      <div class="stampmark" style="--d:2600ms">경찰청<br>과학치안 우수사례</div>
+    </div>
+    <h2 class="a" style="--d:500ms"><span class="hl">누구나 쉽게</span><br><span class="ml">머신러닝</span> 데이터 분석</h2>
+    <div class="sub a" style="--d:1000ms">112신고 데이터를 올리기만 하면<br>순찰이 필요한 곳을 찾아주는 <b style="color:#fff">A.C.E 프로그램</b></div>
+    <div class="cap a" style="--d:1500ms">거점·탄력 순찰장소 <span class="hl" style="font-size:60px;font-weight:900"><span class="num" data-to="1639" data-d="1500" data-du="900">0</span>개소</span> 발굴</div>
+    <div class="flash" style="--d:2750ms"></div>
+  </section>
+
+  <!-- ② CPTED -->
+  <section class="scene" data-ch="2" data-dur="4500">
+    <div class="tag a">② CPTED <small>1/5</small></div>
+    <h2 class="a" style="--d:150ms">주민에게 <span class="hl">직접 물었습니다</span></h2>
+    <div class="asks">
+      <div class="ask a" style="--anim:pop;--d:500ms"><small>Q1</small>어디가 실제로 무서우세요?</div>
+      <div class="ask a" style="--anim:pop;--d:1100ms"><small>Q2</small>순찰이 필요한 장소는 어디예요?</div>
+    </div>
+    <div class="a" style="--d:1800ms;margin-top:30px">
+      <div class="big" style="font-size:210px"><span class="num" data-to="595" data-d="1800" data-du="1100">0</span><small>명</small></div>
+      <div class="cap" style="margin-top:14px">주민이 직접 답했습니다</div>
+    </div>
+  </section>
+
+  <section class="scene" data-ch="2" data-dur="3500">
+    <div class="tag a">② CPTED <small>2/5</small></div>
+    <h2 class="a" style="--d:150ms">595명의 응답을 토대로<br><span class="hl">취약지역 확인</span></h2>
+    <div class="map a" style="--d:300ms;--anim:fade">
+      <i class="pin a" style="left:22%;top:30%;--d:700ms;--anim:pop;--c:var(--gold)"></i>
+      <i class="pin a" style="left:62%;top:22%;--d:820ms;--anim:pop"></i>
+      <i class="pin a" style="left:44%;top:46%;--d:940ms;--anim:pop"></i>
+      <i class="pin a" style="left:80%;top:52%;--d:1060ms;--anim:pop"></i>
+      <i class="pin a" style="left:18%;top:70%;--d:1180ms;--anim:pop"></i>
+      <i class="pin a" style="left:55%;top:78%;--d:1300ms;--anim:pop"></i>
+      <i class="pin a" style="left:34%;top:94%;--d:1420ms;--anim:pop"></i>
+    </div>
+    <div class="cap a" style="--d:1500ms">관리구역 <span class="big" style="font-size:150px"><span class="num" data-to="7" data-d="1500" data-du="700">0</span><small>개소</small></span> 신규 지정</div>
+    <div class="sub a" style="--d:1900ms;margin-top:-20px"><b style="color:var(--gold)">●</b> 강화구역 1 &nbsp;·&nbsp; <b class="hl">●</b> 안심귀갓길 6</div>
+  </section>
+
+  <section class="scene center" data-ch="2" data-dur="3000">
+    <div class="tag a" style="margin-bottom:auto">② CPTED <small>3/5</small></div>
+    <h2 class="a" style="--d:150ms">그런데,<br>방범CCTV 예산이 <span class="drop-red">줄었습니다</span></h2>
+    <div class="jolt" style="--jd:1050ms">
+      <div class="big a drop-red" style="--anim:slam;--du:.6s;--d:700ms;font-size:240px">▼38.9<small>%</small></div>
+    </div>
+    <div class="sub a" style="--d:1400ms;margin-bottom:auto">고양시 방범CCTV 예산 2.62억 → 1.6억</div>
+    <div class="flash" style="--d:850ms"></div>
+  </section>
+
+  <section class="scene" data-ch="2" data-dur="4500">
+    <div class="tag a">② CPTED <small>4/5</small></div>
+    <div class="photo a" style="--d:150ms;--anim:fade;height:760px">
+      <img src="photos/4_cctv.jpg" alt="" style="object-position:50% 56%" onerror="this.parentNode.classList.add('empty')">
+      <div class="ph"><b>📷 사진 4</b><span>이동형 CCTV 설치 모습</span><code>photos/4_cctv.jpg</code></div>
+    </div>
+    <h2 class="a" style="--d:300ms">예산 감소에 <span class="hl">대응했습니다!</span></h2>
+    <div class="cap a" style="--anim:left;--d:800ms"><span class="badge" style="display:inline-block;margin-right:16px">북부청 유일</span>이동형 CCTV 도입예산 <b class="hl">4,000만원</b></div>
+    <div class="jolt" style="--jd:1950ms">
+      <div class="big a" style="--anim:slam;--du:.6s;--d:1600ms;font-size:200px">10대 <span style="color:#fff">확보!</span></div>
+    </div>
+    <div class="flash" style="--d:1750ms"></div>
+  </section>
+
+  <section class="scene center" data-ch="2" data-dur="5000">
+    <div class="tag a" style="margin-bottom:auto">② CPTED <small>5/5</small></div>
+    <h2 class="a" style="--d:150ms">CPTED 예산 확보</h2>
+    <div class="budget">
+      <div class="brow a" style="--anim:left;--d:400ms">관리구역<b>7,749만원</b></div>
+      <div class="brow a" style="--anim:left;--d:650ms">집중관리구역<b>2,960만원</b></div>
+      <div class="brow a" style="--anim:left;--d:900ms">이동형 CCTV<b>4,000만원</b></div>
+    </div>
+    <div class="btotal a" style="--d:1300ms">
+      <div class="cap" style="color:var(--dim)">합계 · <span class="hl">청내 최다</span></div>
+      <div class="big" style="font-size:150px;margin-top:10px"><span class="num" data-to="14709" data-d="1400" data-du="1300" data-fmt="man">0</span></div>
+    </div>
+    <div class="medal a" style="--d:3100ms;--anim:pop;margin-bottom:auto">🏆 '26년 상반기 체감안전도 1위</div>
+  </section>
+
+  <!-- ③ 민·경 협업 -->
+  <section class="scene" data-ch="3" data-dur="5500">
+    <div class="tag a">③ 민·경 협업 <small>1/2</small></div>
+    <div class="duo">
+      <div class="seq sky a" data-dir="sky" style="--d:100ms;--anim:fade">
+        <div class="frames"></div>
+        <div class="lbl"><b>SKY</b>드론 순찰</div><div class="rec">● REC</div>
+        <div class="ph"><b>📷 하늘 연속 컷</b><span>드론 화면 사진 여러 장</span><code>photos/sky/01.jpg, 02.jpg …</code></div>
+      </div>
+      <div class="seq ground a" data-dir="ground" style="--d:300ms;--anim:fade">
+        <div class="frames"></div>
+        <div class="lbl"><b>GROUND</b>자율방범대 · 경찰 합동순찰</div>
+        <div class="ph"><b>📷 땅 연속 컷</b><span>합동순찰 사진 여러 장</span><code>photos/ground/01.jpg, 02.jpg …</code></div>
+      </div>
+    </div>
+    <h2 class="a" style="--d:600ms;font-size:64px">주민이 불안한 곳,<br>드론·순찰로봇과 함께<br><span class="hl">민·경이 함께 순찰</span></h2>
+    <div class="result a" style="--anim:left;--d:1600ms"><i>→</i>능곡2구역 우범화 문제 해결</div>
+  </section>
+
+  <section class="scene" data-ch="3" data-dur="5000">
+    <div class="tag a">③ 민·경 협업 <small>2/2</small></div>
+    <h2 class="a" style="--d:200ms">능곡2구역<br>월평균 112신고</h2>
+    <div class="chart a" style="--d:300ms;--anim:fade">
+      <div class="col before"><b><span class="num" data-to="3.83" data-dec="2" data-d="500">0</span>건</b><div class="bv" style="--h:480px;--d:500ms"></div><span>설치 전 (1~6월)</span></div>
+      <div class="col"><b><span class="num" data-to="1.25" data-dec="2" data-d="1300">0</span>건</b><div class="bv" style="--h:157px;--d:1300ms"></div><span>설치 후 (7~10월)</span></div>
+      <svg class="arc" viewBox="0 0 900 760">
+        <path pathLength="1" d="M380 205 Q 560 60 628 372" style="--d:1350ms"/>
+        <polygon points="634,401 653,356 598,368" style="--d:1900ms"/>
+      </svg>
+    </div>
+    <div class="jolt" style="--jd:2450ms">
+      <div class="a" style="--anim:slam;--du:.55s;--d:2100ms">
+        <div class="big">▼<span class="num" data-to="67.4" data-dec="1" data-d="2100" data-du="500">0</span><small>%</small></div>
+        <div class="cap" style="margin-top:14px">안전펜스 설치 후 112신고 감소</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ④ 교육·홍보 -->
+  <section class="scene" data-ch="4" data-dur="5000">
+    <div class="tag a">④ 교육·홍보 <small>1/5</small></div>
+    <h2 class="a" style="--d:200ms">외국인 대상 범죄예방 정보<br><span class="hl">다국어 번역</span></h2>
+    <div class="orbit" id="orbit">
+      <div class="big a" style="--d:400ms;--anim:pop">8<small>개국어</small></div>
+    </div>
+    <div class="cap a" style="--d:1400ms">외국인 대상 범죄 <span class="hl">18종</span> 예방정보 번역</div>
+    <div class="crimes" id="crimes"></div>
+  </section>
+
+  <section class="scene" data-ch="4" data-dur="4500">
+    <div class="tag a">④ 교육·홍보 <small>2/5</small></div>
+    <h2 class="a" style="--d:200ms">모국어로 쓰면<br><span class="hl">한국어로 112 신고</span></h2>
+    <div class="app">
+      <div class="phone a" style="--d:200ms;--anim:up">
+        <div class="top"><img src="photos/emblem.jpg" alt=""><b>112 문자신고 작성</b><span>Tiếng Việt</span></div>
+        <div class="body">
+          <div class="lab">내 언어로 상황 입력</div>
+          <div class="box in"><span class="type" data-d="600" data-du="1300">Có người lạ đang đi theo tôi gần ga Hwajeong. Xin hãy giúp tôi!</span><i class="caret"></i></div>
+          <div class="tr a" style="--anim:pop;--d:2000ms">⇅ 한국어로 자동 번역</div>
+          <div class="lab a" style="--anim:fade;--d:2200ms">한국어 신고문</div>
+          <div class="box out a" style="--anim:pop;--d:2300ms">화정역 근처에서 낯선 사람이 저를 따라오고 있습니다. 도와주세요!</div>
+          <div class="send a" style="--d:2900ms">112로 문자 보내기</div>
+        </div>
+      </div>
+      <div class="flow">
+        <div class="a" style="--d:500ms"><small>STEP 1</small>모국어로 입력</div>
+        <div class="arr a" style="--d:1800ms">↓</div>
+        <div class="a" style="--d:2000ms"><small>STEP 2</small>한국어 자동 번역</div>
+        <div class="arr a" style="--d:2600ms">↓</div>
+        <div class="goal a" style="--d:2800ms;--anim:pop"><small style="color:rgba(255,255,255,.8)">STEP 3</small>112 문자신고</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="scene" data-ch="4" data-dur="4000">
+    <div class="tag a">④ 교육·홍보 <small>3/5</small></div>
+    <div class="edu">
+      <div class="photo a" style="--d:100ms;--anim:up">
+        <img src="photos/7_edu1.jpg" alt="" style="object-position:60% 50%" onerror="this.parentNode.classList.add('empty')">
+        <div class="chip"><b>●</b>외국인 유학생</div>
+      </div>
+      <div class="photo a" style="--d:450ms;--anim:up">
+        <img src="photos/7_council.jpg" alt="" style="object-position:55% 55%" onerror="this.parentNode.classList.add('empty')">
+        <div class="chip"><b>●</b>주민자치회</div>
+      </div>
+      <div class="photo inset a" style="--d:900ms;--anim:pop">
+        <img src="photos/7_edu2.jpg" alt="" style="object-position:30% 50%" onerror="this.parentNode.classList.add('empty')">
+      </div>
+    </div>
+    <h2 class="a" style="--d:1100ms">유학생·주민자치회<br><span class="hl">보이스피싱 예방 교육</span></h2>
+  </section>
+
+  <section class="scene" data-ch="4" data-dur="3500">
+    <div class="tag a">④ 교육·홍보 <small>4/5</small></div>
+    <div class="promo">
+      <div class="photo stand a" style="--d:100ms;--anim:up">
+        <img src="photos/7_stand.jpg" alt="" onerror="this.parentNode.classList.add('empty')">
+        <div class="chip"><b>●</b>입간판</div>
+      </div>
+      <div class="photo a" style="--d:400ms;--anim:up">
+        <img src="photos/7_vms.jpg" alt="" onerror="this.parentNode.classList.add('empty')">
+        <div class="chip"><b>●</b>전광판 VMS</div>
+      </div>
+      <div class="photo a" style="--d:700ms;--anim:up">
+        <img src="photos/7_hanger.jpg" alt="" style="object-position:50% 30%" onerror="this.parentNode.classList.add('empty')">
+        <div class="chip"><b>●</b>홍보물</div>
+      </div>
+    </div>
+    <h2 class="a" style="--d:1000ms">생활 속 <span class="hl">보이스피싱 예방 홍보</span></h2>
+  </section>
+
+  <section class="scene" data-ch="4" data-dur="4500">
+    <div class="tag a">④ 교육·홍보 <small>5/5</small></div>
+    <div class="press">
+      <img class="a" src="photos/news/01.jpg" alt="" style="--d:100ms;--anim:pop;top:0;rotate:-6deg;translate:-90px 0">
+      <img class="a" src="photos/news/02.jpg" alt="" style="--d:300ms;--anim:pop;top:50px;rotate:5deg;translate:90px 0">
+      <img class="a" src="photos/news/03.jpg" alt="" style="--d:500ms;--anim:pop;top:110px;rotate:-3deg;translate:-60px 0">
+      <img class="a" src="photos/news/04.jpg" alt="" style="--d:700ms;--anim:pop;top:170px;rotate:4deg;translate:70px 0">
+      <img class="a" src="photos/news/05.jpg" alt="" style="--d:900ms;--anim:pop;top:230px;rotate:-1deg">
+      <img class="tv a" src="photos/8_interview.jpg" alt="" style="--d:1500ms;--anim:slam;--du:.6s">
+    </div>
+    <h2 class="a" style="--d:2100ms">언론보도로<br><span class="hl">주민에게 활동을 알렸습니다</span></h2>
+  </section>
+
+  <!-- 클로징 -->
+  <section class="scene" id="s-end" data-ch="5" data-dur="6000">
+    <div class="merge">
+      <i style="background:var(--patrol);--y:-160px;--d:0ms"></i>
+      <i style="background:var(--cpted);--y:160px;--d:120ms"></i>
+      <i style="background:var(--coop);--y:-160px;--d:240ms"></i>
+      <i style="background:var(--edu);--y:160px;--d:360ms"></i>
+    </div>
+    <div class="awards">
+      <div class="award a" style="--anim:left;--d:600ms">경찰청 우수사례 선정<b>2회</b></div>
+      <div class="award a" style="--anim:left;--d:900ms">경찰청 AI 과학치안 우수사례<b>선정</b></div>
+      <div class="award a" style="--anim:left;--d:1200ms">주·야간 취약요인 진단<b><span class="num" data-to="126" data-d="1300" data-du="1200">0</span>회</b></div>
+    </div>
+    <img class="emblem a" src="photos/emblem.jpg" alt="고양경찰서" style="--anim:pop;--d:3000ms">
+    <div class="msg a" style="--d:3500ms">주민의 의견을 듣고<br>현장을 바꿔나가는 <em>고양경찰서</em></div>
+  </section>
+
+  <footer>고양경찰서 · 2026 범죄예방 성과</footer>
+
+  <div id="pauseIcon" hidden><div>❚❚</div></div>
+  <div class="ov" id="start">
+    <div class="btn">▶</div>
+    <h3>고양경찰서<br>2026 범죄예방 성과</h3>
+    <p>터치하여 재생 · 약 1분</p>
+  </div>
+  <div class="ov" id="replay" hidden>
+    <div class="btn" style="padding:0">↻</div>
+    <h3>다시 보기</h3>
+  </div>
+</div>
+
+<!-- 배경음악: motion/bgm.mp3 파일을 넣으면 자동 재생 -->
+<audio id="bgm" src="bgm.mp3" preload="auto"></audio>
+
+<script>
+(() => {
+  const stage = document.getElementById('stage');
+  const S = [...stage.querySelectorAll('.scene')];
+  // 전체 템포: 장면 길이·등장 시점·카운트 속도를 한 번에 압축 (1 = 원래 속도)
+  const SPEED = 0.8;
+  S.forEach(s => { s.dataset.dur = Math.round(s.dataset.dur * SPEED); });
+  const DUR = S.map(s => +s.dataset.dur);
+  const CH = S.map(s => +s.dataset.ch);
+  const COLORS = ['var(--navy)', 'var(--patrol)', 'var(--cpted)', 'var(--coop)', 'var(--edu)', 'var(--navy)'];
+  const segs = [...stage.querySelectorAll('.seg')];
+  const bgm = document.getElementById('bgm');
+  let idx = -1, t = 0, playing = false, started = false, last = performance.now();
+
+  // 화면 크기에 맞춰 무대 축소
+  const fit = () => stage.style.setProperty('--s', Math.min(innerWidth / 1080, innerHeight / 1920));
+  addEventListener('resize', fit); fit();
+
+  // 앱 지원 언어 8개 (goyang-safety.vercel.app 언어 메뉴 기준)
+  const LANGS = ['한국어', '영어', '베트남어', '중국어', '우즈베크어', '네팔어', '몽골어', '태국어'];
+  document.getElementById('orbit').insertAdjacentHTML('beforeend', LANGS.map((name, i) => {
+    const r = i * Math.PI / 4 - Math.PI / 2;
+    return `<span class="a" style="--anim:fade;--d:${600 + i * 90}ms;left:calc(50% + ${Math.cos(r) * 310}px);top:calc(50% + ${Math.sin(r) * 230}px)">${name}</span>`;
+  }).join(''));
+
+  // 앱에서 번역 제공하는 범죄 18종 (goyang-safety.vercel.app/crimes 기준)
+  const CRIMES = ['보이스피싱', '스미싱·악성링크', '계좌·통장·카드 대여', '로맨스스캠', '명의대여', '투자·리딩방 사기',
+    '중고거래 사기', '고액 알바·현금 수거', '마약 운반 알바', '불법 환전·송금', '불법 온라인 도박', '비자·체류 사칭',
+    '주거·임대차 사기', '몸캠피싱', '스토킹', '성범죄', '불법촬영', '데이트폭력'];
+  document.getElementById('crimes').innerHTML = CRIMES.map((name, i) =>
+    `<span class="a" style="--anim:pop;--du:.4s;--d:${1700 + i * 70}ms">${name}</span>`).join('');
+
+  stage.querySelectorAll('[style]').forEach(el => ['--d', '--jd', '--du'].forEach(name => {
+    const v = el.style.getPropertyValue(name).trim();
+    if (v) el.style.setProperty(name, parseFloat(v) * SPEED + (v.endsWith('ms') ? 'ms' : 's'));
+  }));
+  stage.querySelectorAll('[data-d], [data-du]').forEach(el => {
+    if (el.dataset.d) el.dataset.d = el.dataset.d * SPEED;
+    el.dataset.du = (el.dataset.du || 1200) * SPEED;
+  });
+
+  // 땅·하늘 연속 컷: photos/<dir>/01.jpg … 순서대로 불러와 빠르게 넘김
+  const FRAME_MS = 120;
+  const seqs = [...stage.querySelectorAll('.seq')].map(el => {
+    const box = el.querySelector('.frames'), frames = [], seq = {el, list: [], cur: -1};
+    let pending = 30;
+    const done = () => {
+      if (--pending) return;
+      seq.list = frames.filter(Boolean);
+      seq.list.forEach(img => box.appendChild(img));
+      el.classList.toggle('empty', !seq.list.length);
+    };
+    for (let k = 1; k <= 30; k++) {
+      const img = new Image();
+      img.onload = () => { frames[k] = img; done(); };
+      img.onerror = done;
+      img.src = `photos/${el.dataset.dir}/${String(k).padStart(2, '0')}.jpg`;
+    }
+    return seq;
+  });
+
+  // 챕터별 장면 시작 위치
+  const chapters = {};
+  S.forEach((s, i) => { (chapters[CH[i]] ||= []).push(i); });
+
+  const fmt = (v, el) => {
+    const dec = +el.dataset.dec || 0;
+    if (el.dataset.fmt === 'man') {
+      const n = Math.round(v), eok = Math.floor(n / 10000), rest = n % 10000;
+      return (eok ? eok + '억 ' : '') + rest.toLocaleString('ko-KR') + '만원';
+    }
+    return v.toLocaleString('ko-KR', {minimumFractionDigits: dec, maximumFractionDigits: dec});
+  };
+
+  const videoOf = s => s && s.querySelector('video');
+
+  function go(i) {
+    const prev = S[idx];
+    if (prev && prev !== S[i]) {
+      prev.classList.remove('on'); prev.classList.add('out');
+      if (videoOf(prev)) videoOf(prev).pause();
+      setTimeout(() => { if (!prev.classList.contains('on')) prev.classList.remove('out'); }, 460);
+    }
+    idx = i; t = 0;
+    const s = S[i];
+    s.classList.remove('on', 'out'); void s.offsetWidth; s.classList.add('on');
+    stage.style.setProperty('--c', COLORS[CH[i]]);
+    stage.dataset.ch = CH[i];
+    const v = videoOf(s);
+    if (v) { try { v.currentTime = 0; } catch (e) {} if (playing) v.play().catch(() => {}); }
+  }
+
+  function update() {
+    if (idx < 0) return;
+    S[idx].querySelectorAll('.num').forEach(el => {
+      const d = +el.dataset.d || 0, du = +el.dataset.du || 1200;
+      const p = Math.min(Math.max((t - d) / du, 0), 1);
+      el.textContent = fmt(+el.dataset.to * (1 - Math.pow(1 - p, 3)), el);
+    });
+    S[idx].querySelectorAll('.type').forEach(el => {
+      el.dataset.full ||= el.textContent;
+      const p = Math.min(Math.max((t - el.dataset.d) / el.dataset.du, 0), 1);
+      el.textContent = el.dataset.full.slice(0, Math.round(el.dataset.full.length * p));
+    });
+    seqs.forEach(q => {
+      if (!q.list.length || !S[idx].contains(q.el)) return;
+      const n = Math.floor(t / FRAME_MS) % q.list.length;
+      if (n === q.cur) return;
+      if (q.list[q.cur]) q.list[q.cur].classList.remove('cur');
+      q.list[n].classList.add('cur'); q.cur = n;
+    });
+    // 영상은 장면 시계에 맞춰 둠
+    const v = videoOf(S[idx]);
+    if (v && v.readyState > 0 && Math.abs(v.currentTime - t / 1000) > .3) { try { v.currentTime = t / 1000; } catch (e) {} }
+    const cur = CH[idx];
+    segs.forEach(seg => {
+      const kk = +seg.dataset.k, list = chapters[kk];
+      let f = 0;
+      if (cur > kk) f = 1;
+      else if (cur === kk) {
+        const total = list.reduce((a, j) => a + DUR[j], 0);
+        const done = list.filter(j => j < idx).reduce((a, j) => a + DUR[j], 0);
+        f = (done + t) / total;
+      }
+      seg.querySelector('.fill').style.width = Math.min(f, 1) * 100 + '%';
+      seg.classList.toggle('cur', cur === kk);
+    });
+  }
+
+  function tick(now) {
+    const dt = Math.min(now - last, 100); last = now;
+    if (playing) {
+      t += dt;
+      if (t >= DUR[idx]) {
+        if (idx < S.length - 1) go(idx + 1);
+        else { t = DUR[idx]; playing = false; document.getElementById('replay').hidden = false; bgm.pause(); }
+      }
+    }
+    update();
+    requestAnimationFrame(tick);
+  }
+
+  function setPaused(p) {
+    playing = !p;
+    stage.classList.toggle('paused', p);
+    document.getElementById('pauseIcon').hidden = !p;
+    p ? bgm.pause() : bgm.play().catch(() => {});
+    const v = videoOf(S[idx]);
+    if (v) p ? v.pause() : v.play().catch(() => {});
+  }
+
+  function start(from = 0) {
+    started = true;
+    document.getElementById('start').hidden = true;
+    document.getElementById('replay').hidden = true;
+    if (from === 0) { try { bgm.currentTime = 0; } catch (e) {} }
+    playing = true; go(from); setPaused(false);
+  }
+
+  document.getElementById('start').addEventListener('click', e => { e.stopPropagation(); start(); });
+  document.getElementById('replay').addEventListener('click', e => { e.stopPropagation(); start(); });
+  segs.forEach(seg => seg.addEventListener('click', e => {
+    if (!started) return;
+    e.stopPropagation();
+    document.getElementById('replay').hidden = true;
+    playing = true; go(chapters[+seg.dataset.k][0]); setPaused(false);
+  }));
+  stage.addEventListener('click', () => { if (started && document.getElementById('replay').hidden) setPaused(playing); });
+
+  // 특정 시점(ms)으로 이동해 멈춤 — 검수·MP4 프레임 출력용
+  function seek(ms) {
+    let i = 0;
+    while (i < S.length - 1 && ms >= DUR[i]) { ms -= DUR[i]; i++; }
+    started = true;
+    document.getElementById('start').hidden = true;
+    playing = false; go(i); t = Math.min(ms, DUR[i]);
+    S[i].getAnimations({subtree: true}).forEach(a => { a.pause(); a.currentTime = t; });
+    const v = videoOf(S[i]);
+    if (v) {
+      v.pause();
+      const set = () => { try { v.currentTime = t / 1000; } catch (e) {} };
+      v.readyState ? set() : v.addEventListener('loadedmetadata', set, {once: true});
+    }
+    update();
+  }
+  window.seek = seek;
+
+  // ?autoplay=1 : 녹화용 자동 시작, ?t=ms : 해당 시점 정지 화면
+  const q = new URLSearchParams(location.search);
+  if (q.has('t')) seek(+q.get('t'));
+  else if (q.has('autoplay')) start();
+  requestAnimationFrame(tick);
+})();
+</script>
+</body>
+</html>
